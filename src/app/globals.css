@@ -1,0 +1,47 @@
+@import '../styles/tokens.css';
+@import '../styles/reader.css';
+@import '../styles/library.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-mukta), 'Nirmala UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.sr-only-focusable:not(:focus) {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* The article editor: the book's reading typography, roughly. */
+.article-prose { font-family: var(--font-noto-serif), serif; font-size: 17px; line-height: 1.8; color: var(--ink); min-height: 320px; }
+.article-prose > * + * { margin-top: 0.85em; }
+.article-prose h2 { font-family: var(--font-mukta), sans-serif; font-weight: 700; font-size: 1.3em; line-height: 1.4; margin-top: 1.4em; }
+.article-prose h3 { font-family: var(--font-mukta), sans-serif; font-weight: 700; font-size: 1.1em; line-height: 1.4; margin-top: 1.2em; }
+.article-prose strong { font-weight: 700; }
+.article-prose em { font-style: italic; }
+.article-prose a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+.article-prose ul { list-style: disc; padding-left: 1.4em; }
+.article-prose ol { list-style: decimal; padding-left: 1.4em; }
+.article-prose blockquote { border-left: 3px solid var(--brand); padding-left: 1em; color: var(--ink-2); }
+.article-prose img { display: block; max-width: 100%; height: auto; border-radius: 4px; margin: 1.2em 0; }
+.article-prose img.ProseMirror-selectednode { outline: 3px solid var(--brand); }
+.article-prose p.is-editor-empty:first-child::before { content: attr(data-placeholder); color: var(--faint); float: left; height: 0; pointer-events: none; }
+
+/* Admin form controls share one look. */
+@layer components {
+  .field { @apply block w-full rounded-md border border-line bg-surface px-3 py-2 text-[15px] text-ink outline-none transition placeholder:text-faint focus:border-ink-2 focus:ring-2 focus:ring-[rgb(23_22_26/0.08)]; }
+  .label { @apply mb-1.5 block text-[13px] font-semibold text-ink-2; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-md px-3.5 py-2 text-[14px] font-semibold transition disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply btn bg-ink text-white hover:bg-ink-2; }
+  .btn-brand { @apply btn bg-brand text-white hover:brightness-110; }
+  .btn-ghost { @apply btn border border-line bg-surface text-ink hover:border-line-strong hover:bg-sunk; }
+  .btn-danger { @apply btn border border-line bg-surface text-brand hover:bg-brand-soft; }
+  .chip { @apply inline-flex items-center rounded-full px-2 py-0.5 text-[12px] font-semibold; }
+}

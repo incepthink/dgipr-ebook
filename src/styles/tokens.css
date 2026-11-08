@@ -1,0 +1,23 @@
+/* Site-wide tokens: library and admin. The reader's page surface has its own
+   theme set in reader.css. */
+:root {
+  --ink: #17161a;
+  --ink-2: #3a3833;
+  --muted: #6d6860;
+  --faint: #9c968c;
+  --paper: #fbfaf7;
+  --canvas: #f3f1ec;
+  --surface: #ffffff;
+  --sunk: #ebe8e1;
+  --line: #e3dfd6;
+  --line-strong: #cdc7bb;
+  --brand: #a8172c;
+  --brand-soft: #f7e6e8;
+  --ok: #1f6b4a;
+  --ok-soft: #e3f1ea;
+  --warn: #8a5a00;
+  --warn-soft: #f8edd5;
+  --shadow-card: 0 1px 2px rgb(23 22 26 / 0.06), 0 1px 1px rgb(23 22 26 / 0.04);
+  --shadow-lift: 0 18px 40px -18px rgb(23 22 26 / 0.35), 0 2px 6px rgb(23 22 26 / 0.08);
+  color-scheme: light;
+}
