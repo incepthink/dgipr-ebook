@@ -1,4 +1,5 @@
-import { BookPatch, handle, json } from '@/lib/api'
+import { BookPatch, json } from '@/lib/api'
+import { adminRoute } from '@/lib/auth/session'
 import { createBook, listBooks, uniqueSlug } from '@/lib/db'
 import { slugify } from '@/lib/slug'
 import { todayIso } from '@/lib/marathi'
@@ -6,9 +7,9 @@ import { DEFAULT_ACCENT } from '@/lib/types'
 
 export const dynamic = 'force-dynamic'
 
-export const GET = handle(async () => json(await listBooks()))
+export const GET = adminRoute(async () => json(await listBooks()))
 
-export const POST = handle(async (req: Request) => {
+export const POST = adminRoute(async (req: Request) => {
   const body = BookPatch.extend({ title: BookPatch.shape.title.unwrap() }).parse(await req.json())
   const kind = body.kind ?? 'edition'
   const editionDate = body.editionDate ?? todayIso()

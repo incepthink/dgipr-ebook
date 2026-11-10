@@ -1,6 +1,8 @@
 @import '../styles/tokens.css';
 @import '../styles/reader.css';
+@import '../styles/reader-extras.css';
 @import '../styles/library.css';
+@import '../styles/account.css';
 
 @tailwind base;
 @tailwind components;

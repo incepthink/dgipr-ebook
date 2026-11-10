@@ -1,11 +1,13 @@
 import { Plus } from 'lucide-react'
 import Link from 'next/link'
 import { BooksTable } from '@/components/admin/BooksTable'
+import { requireAdminPage } from '@/lib/auth/guard'
 import { listBooks } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminHome() {
+  await requireAdminPage('/admin')
   const books = await listBooks()
   return (
     <>

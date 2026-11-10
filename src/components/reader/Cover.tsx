@@ -16,7 +16,7 @@ const GOV = 'महाराष्ट्र शासन · माहिती �
  * lead story's photograph and three cover lines. It scales with its box
  * (container units), so the same component serves the reader and the shelf.
  */
-export function Cover({ book, leadImage, lines, imgWidth = 1080 }: CoverData & { imgWidth?: 640 | 828 | 1080 }) {
+export function Cover({ book, leadImage, lines, imgWidth = 1080 }: CoverData & { imgWidth?: 384 | 640 | 828 | 1080 }) {
   const when = book.editionDate
     ? book.kind === 'edition'
       ? dateMr(book.editionDate)

@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import { handle, json } from '@/lib/api'
+import { json } from '@/lib/api'
+import { adminRoute } from '@/lib/auth/session'
 import { appendChapters, upsertArticleBySource } from '@/lib/db'
 import { fetchPost, fetchPostByUrl, mapPost } from '@/lib/mahasamvad/wp'
 import type { Article } from '@/lib/types'
@@ -11,7 +12,7 @@ export const maxDuration = 60
  * Import Mahasamvad posts — by pasted URL or by WordPress id — upserting by
  * URL, and optionally append them to a book in the given order.
  */
-export const POST = handle(async (req: Request) => {
+export const POST = adminRoute(async (req: Request) => {
   const body = z
     .object({
       urls: z.array(z.string().trim().min(1)).max(50).optional(),

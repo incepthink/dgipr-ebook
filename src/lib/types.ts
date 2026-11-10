@@ -27,6 +27,8 @@ export interface BookSummary extends Book {
   chapterCount: number
   leadImage: string | null
   leadTitles: string[]
+  /** Districts its articles are from: for the district filter. */
+  districts: string[]
 }
 
 export interface Article {

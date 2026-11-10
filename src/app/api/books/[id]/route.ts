@@ -1,18 +1,19 @@
-import { BookPatch, fail, handle, idParam, json } from '@/lib/api'
+import { BookPatch, fail, idParam, json } from '@/lib/api'
+import { adminRoute } from '@/lib/auth/session'
 import { deleteBook, getBook, listChapters, slugExists, updateBook } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
 type Ctx = { params: Promise<{ id: string }> }
 
-export const GET = handle(async (_req: Request, { params }: Ctx) => {
+export const GET = adminRoute(async (_req: Request, { params }: Ctx) => {
   const id = await idParam(params)
   const book = await getBook(id)
   if (!book) return fail('पुस्तक सापडले नाही', 404)
   return json({ book, chapters: await listChapters(id) })
 })
 
-export const PATCH = handle(async (req: Request, { params }: Ctx) => {
+export const PATCH = adminRoute(async (req: Request, { params }: Ctx) => {
   const id = await idParam(params)
   const patch = BookPatch.parse(await req.json())
   if (patch.slug && (await slugExists(patch.slug, id))) return fail('ही लिंक (slug) आधीच वापरात आहे', 409)
@@ -25,7 +26,7 @@ export const PATCH = handle(async (req: Request, { params }: Ctx) => {
   return json(book)
 })
 
-export const DELETE = handle(async (_req: Request, { params }: Ctx) => {
+export const DELETE = adminRoute(async (_req: Request, { params }: Ctx) => {
   await deleteBook(await idParam(params))
   return json({ ok: true })
 })

@@ -1,10 +1,14 @@
 import Link from 'next/link'
 import { AdminNav } from '@/components/admin/AdminNav'
 import { ToastProvider } from '@/components/admin/ui'
+import { requireAdminPage } from '@/lib/auth/guard'
 
 export const metadata = { title: 'व्यवस्थापन' }
+export const dynamic = 'force-dynamic'
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  // Every admin page checks again itself; this covers the client-only ones (new book).
+  await requireAdminPage('/admin')
   return (
     <div className="min-h-screen bg-canvas">
       <header className="sticky top-0 z-30 border-b border-line bg-paper">

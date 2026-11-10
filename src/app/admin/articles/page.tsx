@@ -1,9 +1,11 @@
 import { ArticlesList } from '@/components/admin/ArticlesList'
+import { requireAdminPage } from '@/lib/auth/guard'
 import { listArticles } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Articles() {
+  await requireAdminPage('/admin/articles')
   const articles = await listArticles({ limit: 300 })
   return (
     <>

@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+
+<html class="light" lang="mr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>साइन इन व OTP पडताळणी - महासंवाद-पुस्तके | महाराष्ट्र शासन (DGIPR)</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;family=Public+Sans:wght@400;500;600;700&amp;family=Tiro+Devanagari+Marathi:ital@0;1&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-tint": "#b52234",
+            "background": "#fdf8fe",
+            "inverse-surface": "#313034",
+            "on-tertiary-container": "#90dab1",
+            "ink-faint": "#9C968C",
+            "on-surface-variant": "#5a4040",
+            "primary-fixed-dim": "#ffb3b2",
+            "inverse-primary": "#ffb3b2",
+            "on-error-container": "#93000a",
+            "error-text": "#B3261E",
+            "primary-fixed": "#ffdad9",
+            "on-primary": "#ffffff",
+            "tertiary": "#00482d",
+            "ink-primary": "#17161A",
+            "surface-card": "#FFFFFF",
+            "error-container": "#ffdad6",
+            "on-secondary": "#ffffff",
+            "secondary-container": "#fec565",
+            "outline": "#8e706f",
+            "surface-container-highest": "#e5e1e7",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed-variant": "#005234",
+            "paper-bg": "#FBFAF7",
+            "on-primary-fixed": "#410008",
+            "tertiary-container": "#116141",
+            "canvas-bg": "#F3F1EC",
+            "surface-variant": "#e5e1e7",
+            "surface-dim": "#ddd9de",
+            "crimson-tint": "#F7E6E8",
+            "surface-container-high": "#ebe7ec",
+            "warning-text": "#8A5A00",
+            "on-primary-container": "#ffb9b8",
+            "tertiary-fixed": "#a8f3c8",
+            "ink-secondary": "#3A3833",
+            "ink-muted": "#6D6860",
+            "inverse-on-surface": "#f4eff5",
+            "on-secondary-fixed-variant": "#604100",
+            "on-tertiary-fixed": "#002113",
+            "primary": "#82001b",
+            "border-strong": "#CDC7BB",
+            "on-secondary-container": "#765100",
+            "on-secondary-fixed": "#281900",
+            "border-hairline": "#E3DFD6",
+            "success-surface": "#E3F1EA",
+            "on-background": "#1c1b1f",
+            "primary-container": "#a8172c",
+            "surface-container": "#f1ecf2",
+            "on-surface": "#1c1b1f",
+            "outline-variant": "#e2bebd",
+            "surface-container-low": "#f7f2f8",
+            "gold-tint": "#F8EDD5",
+            "error": "#ba1a1a",
+            "on-error": "#ffffff",
+            "error-surface": "#FBE9E7",
+            "secondary-fixed": "#ffdeac",
+            "tertiary-fixed-dim": "#8cd6ad",
+            "on-primary-fixed-variant": "#920020",
+            "surface-bright": "#fdf8fe",
+            "surface": "#fdf8fe",
+            "secondary-fixed-dim": "#f5bd5e",
+            "on-tertiary": "#ffffff",
+            "surface-sunk": "#EBE8E1",
+            "secondary": "#7e5700"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "gutter-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "margin-mobile": "1rem",
+            "margin": "3rem"
+          },
+          fontFamily: {
+            "body-md": ["Noto Serif", "serif"],
+            "label-sm": ["Public Sans", "Mukta", "sans-serif"],
+            "body-sm": ["Noto Serif", "serif"],
+            "headline-xl-mobile": ["Noto Serif", "serif"],
+            "label-md": ["Public Sans", "Mukta", "sans-serif"],
+            "headline-md": ["Noto Serif", "serif"],
+            "headline-xl": ["Noto Serif", "serif"],
+            "headline-lg-mobile": ["Noto Serif", "serif"],
+            "headline-lg": ["Noto Serif", "serif"],
+            "body-xl": ["Noto Serif", "serif"],
+            "label-lg": ["Public Sans", "Mukta", "sans-serif"],
+            "headline-sm": ["Noto Serif", "serif"],
+            "body-lg": ["Noto Serif", "serif"],
+            "marathi-heading": ["Tiro Devanagari Marathi", "Noto Serif", "serif"],
+            "marathi-ui": ["Mukta", "Public Sans", "sans-serif"]
+          },
+          fontSize: {
+            "body-md": ["16px", { lineHeight: "28px", fontWeight: "400" }],
+            "label-sm": ["11px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+            "body-sm": ["14px", { lineHeight: "24px", fontWeight: "400" }],
+            "headline-xl-mobile": ["30px", { lineHeight: "48px", fontWeight: "700" }],
+            "label-md": ["13px", { lineHeight: "18px", letterSpacing: "0.03em", fontWeight: "500" }],
+            "headline-md": ["24px", { lineHeight: "40px", fontWeight: "600" }],
+            "headline-xl": ["40px", { lineHeight: "64px", letterSpacing: "-0.01em", fontWeight: "700" }],
+            "headline-lg-mobile": ["24px", { lineHeight: "40px", fontWeight: "700" }],
+            "headline-lg": ["32px", { lineHeight: "52px", fontWeight: "700" }],
+            "body-xl": ["20px", { lineHeight: "36px", fontWeight: "400" }],
+            "label-lg": ["15px", { lineHeight: "22px", letterSpacing: "0.02em", fontWeight: "600" }],
+            "headline-sm": ["20px", { lineHeight: "34px", fontWeight: "600" }],
+            "body-lg": ["18px", { lineHeight: "32px", fontWeight: "400" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    
+    /* Authentic 3:4 physical book cover with left spine crease effect */
+    .book-spine-crease {
+      position: relative;
+    }
+    .book-spine-crease::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 14px;
+      background: linear-gradient(to right, rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.08) 5px, rgba(0,0,0,0.02) 9px, transparent 14px);
+      z-index: 10;
+      pointer-events: none;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    
+    /* Clean custom focus ring */
+    input:focus {
+      outline: none;
+      border-color: #82001b !important;
+      box-shadow: 0 0 0 1px #82001b;
+    }
+
+    /* Tab switcher pill */
+    .view-pill.active {
+      background-color: #82001b;
+      color: #ffffff;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="bg-paper-bg text-ink-primary font-marathi-ui antialiased min-h-screen selection:bg-crimson-tint selection:text-primary">
+<!-- Top Announcement / DGIPR Seal Bar -->
+<header class="w-full bg-paper-bg border-b border-border-hairline py-2 px-4 sm:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<!-- Maharashtra State Emblem Representation -->
+<div class="w-7 h-7 rounded-full bg-canvas-bg border border-border-hairline flex items-center justify-center text-primary" title="महाराष्ट्र शासन">
+<span class="material-symbols-outlined text-[18px]">account_balance</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-ink-secondary leading-tight">महाराष्ट्र शासन · माहिती व जनसंपर्क महासंचालनालय (DGIPR)</span>
+<span class="text-[10px] text-ink-muted">Directorate General of Information &amp; Public Relations</span>
+</div>
+</div>
+<!-- Interactive Showcase Mode Toggle -->
+<div class="flex items-center gap-2">
+<span class="text-label-sm text-ink-muted hidden sm:inline">दृश्य निवडा:</span>
+<div class="flex bg-surface-sunk p-1 rounded-lg border border-border-hairline gap-1">
+<button class="view-pill active px-3 py-1 rounded text-label-sm transition-colors duration-150" id="btnShowDesktop" onclick="switchView('desktop')">
+            मुख्य डेस्कटॉप
+          </button>
+<button class="view-pill px-3 py-1 rounded text-label-sm text-ink-secondary hover:text-ink-primary transition-colors duration-150" id="btnShowMobile" onclick="switchView('mobile')">
+            मोबाईल व्ह्यूज (३६०px)
+          </button>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN WRAPPER -->
+<main class="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+<!-- ============================================================== -->
+<!-- VIEW 1: DESKTOP SPLIT VIEW (Primary Login flow) -->
+<!-- ============================================================== -->
+<section class="transition-all duration-300" id="desktopSection">
+<div class="w-full bg-surface-card rounded-xl border border-border-hairline shadow-[0_4px_24px_-4px_rgba(23,22,26,0.05)] overflow-hidden flex flex-col lg:flex-row min-h-[640px]">
+<!-- Left Side (55%): Calm Editorial Panel -->
+<div class="w-full lg:w-[55%] bg-canvas-bg p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-border-hairline flex flex-col justify-between relative overflow-hidden">
+<!-- Subtle watermark archival pattern background -->
+<div class="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-paper-bg/60 pointer-events-none -z-0"></div>
+<!-- Top Brand Identity -->
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-tint border border-[#b7862c]/30 text-warning-text text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                शासकीय ई-ग्रंथालय दालन
+              </span>
+<span class="text-label-sm text-ink-muted">आवृत्ती २०२५.२</span>
+</div>
+<h1 class="font-marathi-heading text-headline-xl font-headline-xl text-primary tracking-tight mb-2">
+              महासंवाद-पुस्तके
+            </h1>
+<p class="font-body-lg text-body-lg text-ink-secondary leading-relaxed mb-8 max-w-lg">
+              महाराष्ट्राच्या बातम्या, विकासनीती आणि ऐतिहासिक दस्तऐवज पुस्तकाच्या अधिकृत व डिजिटल स्वरूपात.
+            </p>
+</div>
+<!-- Central Literary Artifact: 3 Fanned Realistic 3:4 Books -->
+<div class="relative z-10 py-6 my-auto flex items-center justify-center">
+<div class="relative w-full max-w-[380px] h-[240px] flex items-center justify-center">
+<!-- Book 1 (Left tilt, behind) -->
+<div class="absolute -left-2 transform -rotate-12 hover:-rotate-8 transition-transform duration-300 w-[140px] h-[186px] rounded bg-white shadow-[0_12px_24px_-6px_rgba(23,22,26,0.18)] border border-border-hairline book-spine-crease overflow-hidden flex flex-col justify-between p-3">
+<div class="border-b border-border-hairline pb-1.5">
+<span class="text-[9px] uppercase tracking-wider text-ink-muted font-bold block">लोकराज्य विशेषांक</span>
+<p class="text-[12px] font-marathi-heading font-bold text-ink-primary leading-tight mt-0.5">शिवछत्रपतींचे दुर्गवैभव</p>
+</div>
+<div class="w-full h-16 rounded bg-[#F8EDD5] flex items-center justify-center border border-border-hairline/60">
+<span class="material-symbols-outlined text-secondary text-2xl">fort</span>
+</div>
+<div class="flex items-center justify-between text-[8px] text-ink-muted pt-1 border-t border-border-hairline">
+<span>DGIPR संग्रह</span>
+<span class="font-bold">२०२४</span>
+</div>
+</div>
+<!-- Book 3 (Right tilt, behind) -->
+<div class="absolute -right-2 transform rotate-12 hover:rotate-8 transition-transform duration-300 w-[140px] h-[186px] rounded bg-white shadow-[0_12px_24px_-6px_rgba(23,22,26,0.18)] border border-border-hairline book-spine-crease overflow-hidden flex flex-col justify-between p-3">
+<div class="border-b border-border-hairline pb-1.5">
+<span class="text-[9px] uppercase tracking-wider text-ink-muted font-bold block">शासन निर्णय सार</span>
+<p class="text-[12px] font-marathi-heading font-bold text-ink-primary leading-tight mt-0.5">शेतकरी सक्षमीकरण</p>
+</div>
+<div class="w-full h-16 rounded bg-success-surface flex items-center justify-center border border-border-hairline/60">
+<span class="material-symbols-outlined text-tertiary text-2xl">agriculture</span>
+</div>
+<div class="flex items-center justify-between text-[8px] text-ink-muted pt-1 border-t border-border-hairline">
+<span>कृषी विभाग</span>
+<span class="font-bold">भाग ३</span>
+</div>
+</div>
+<!-- Book 2 (Center featured hero book) -->
+<div class="relative z-20 transform -translate-y-2 hover:-translate-y-4 transition-transform duration-300 w-[155px] h-[206px] rounded bg-[#FBFAF7] shadow-[0_18px_32px_-8px_rgba(130,0,27,0.22)] border border-primary/20 book-spine-crease overflow-hidden flex flex-col justify-between p-3.5">
+<div class="border-b border-primary/20 pb-1.5">
+<span class="text-[9px] text-primary font-bold tracking-wider block">वार्षिक दस्तऐवज</span>
+<p class="text-[13px] font-marathi-heading font-bold text-primary leading-tight mt-0.5">प्रगतीचा सुवर्णकाळ</p>
+<span class="text-[9px] text-ink-muted">महाराष्ट्र २०२४-२५</span>
+</div>
+<div class="w-full h-18 py-2 rounded bg-crimson-tint flex flex-col items-center justify-center border border-primary/10 text-center">
+<span class="material-symbols-outlined text-primary text-2xl">auto_stories</span>
+<span class="text-[9px] text-primary font-semibold mt-1">अखिल महाराष्ट्र दर्शन</span>
+</div>
+<div class="flex items-center justify-between text-[8px] text-ink-secondary pt-1 border-t border-border-hairline">
+<span>संपादकीय मंडळ</span>
+<span class="px-1.5 py-0.5 rounded bg-gold-tint text-secondary font-bold">मोफत</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Trust Anchor -->
+<div class="relative z-10 pt-6 border-t border-border-hairline flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-ink-muted">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">workspace_premium</span>
+<span class="text-label-sm font-label-sm">माहिती व जनसंपर्क महासंचालनालय - DGIPR अधिकृत डिजिटल प्रकाशन</span>
+</div>
+<div class="flex items-center gap-3 text-[12px]">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-600"></span> सर्व्हर सक्रिय</span>
+<span>•</span>
+<span>सुगम्य वाचन</span>
+</div>
+</div>
+</div>
+<!-- Right Side (45%): Sign-in Card Container -->
+<div class="w-full lg:w-[45%] bg-surface-card p-8 lg:p-10 flex flex-col justify-between">
+<!-- Top Utility: Language Selector Toggle (min 48px touch area) -->
+<div class="flex items-center justify-between pb-6 border-b border-border-hairline">
+<span class="text-label-md font-label-md text-ink-secondary">भाषा निवडा / Language</span>
+<div class="inline-flex rounded-lg border border-border-hairline bg-surface-sunk p-0.5 h-12 items-center">
+<button class="h-10 px-4 rounded-md bg-white text-primary font-bold text-label-md shadow-sm transition-all flex items-center">
+                मराठी
+              </button>
+<button class="h-10 px-4 rounded-md text-ink-muted hover:text-ink-primary font-medium text-label-md transition-all flex items-center">
+                English
+              </button>
+</div>
+</div>
+<!-- Sign-in Form Body -->
+<div class="py-6">
+<div class="mb-6">
+<h2 class="font-marathi-heading text-headline-md font-headline-md text-ink-primary">
+                खात्यात प्रवेश करा
+              </h2>
+<p class="text-body-sm font-body-sm text-ink-muted mt-1">
+                आपल्या मोफत शासकीय डिजिटल ग्रंथालयाचा लाभ घेण्यासाठी पुढे जा.
+              </p>
+</div>
+<!-- Primary Form: Mobile OTP -->
+<form class="space-y-4" id="desktopLoginForm" onsubmit="event.preventDefault(); showOtpModal();">
+<div>
+<label class="block text-label-md font-label-md text-ink-secondary mb-2" for="mobileInputDesktop">
+                  मोबाईल क्रमांक <span class="text-primary">*</span>
+</label>
+<div class="relative flex items-center">
+<!-- Country code prefix container -->
+<div class="absolute left-0 top-0 bottom-0 w-14 flex items-center justify-center bg-surface-sunk border-r border-border-hairline rounded-l-xl text-ink-primary font-bold text-label-lg select-none">
+                    +९१
+                  </div>
+<input class="w-full h-[52px] pl-16 pr-4 bg-surface-sunk rounded-xl border border-transparent text-ink-primary text-label-lg placeholder-ink-faint focus:bg-white transition-all font-marathi-ui" id="mobileInputDesktop" maxlength="10" placeholder="९८७६५ ४३२१०" required="" type="tel" value="९८७६५४३२१०"/>
+</div>
+<p class="text-label-sm text-ink-muted mt-1.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                  आपल्या क्रमांकावर ६ अंकी पडताळणी कोड पाठवला जाईल.
+                </p>
+</div>
+<!-- Primary Submit Button -->
+<button class="w-full min-h-[48px] h-[50px] bg-primary-container hover:bg-[#8F1224] text-white font-label-lg font-bold rounded-xl transition-colors duration-150 flex items-center justify-center gap-2 shadow-sm active:scale-[0.99]" type="submit">
+<span>OTP पाठवा</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</form>
+<!-- Editorial Divider -->
+<div class="relative my-6 text-center">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-border-hairline"></div>
+</div>
+<span class="relative px-4 bg-surface-card text-ink-muted text-label-sm font-label-sm uppercase tracking-wider">
+                किंवा
+              </span>
+</div>
+<!-- Secondary Login Options -->
+<div class="space-y-3">
+<button class="w-full min-h-[48px] h-12 bg-white hover:bg-canvas-bg border border-border-hairline text-ink-primary font-label-md font-medium rounded-xl transition-colors flex items-center justify-center gap-3" type="button">
+<!-- Authentic Google 'G' Mark Icon SVG -->
+<svg class="w-5 h-5" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path>
+</svg>
+<span>Google ने सुरू ठेवा</span>
+</button>
+<button class="w-full min-h-[48px] h-12 bg-white hover:bg-canvas-bg border border-border-hairline text-ink-primary font-label-md font-medium rounded-xl transition-colors flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[20px] text-ink-secondary">mail</span>
+<span>ईमेलने साइन इन करा</span>
+</button>
+</div>
+<!-- Guest Mode -->
+<div class="mt-6 pt-5 border-t border-border-hairline text-center">
+<button class="text-primary hover:text-[#8F1224] font-label-md font-bold underline underline-offset-4 decoration-primary/40 inline-flex items-center gap-1.5 py-1" onclick="showStepTwoModal()" type="button">
+<span>पाहुणे म्हणून वाचा (नोंदणीशिवाय सुरू ठेवा)</span>
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</button>
+<p class="text-[12px] text-ink-muted mt-1">
+                टीप: पाहुणा वाचक म्हणून तुमचे बुकमार्क आणि वाचन प्रगती फक्त या उपकरणावर सुरक्षित राहील.
+              </p>
+</div>
+</div>
+<!-- Legal & Accessibility Footer -->
+<div class="pt-4 border-t border-border-hairline flex flex-wrap items-center justify-between gap-2 text-label-sm text-ink-muted">
+<a class="hover:text-primary transition-colors underline" href="#">वापराच्या अटी</a>
+<span>•</span>
+<a class="hover:text-primary transition-colors underline" href="#">गोपनीयता धोरण</a>
+<span>•</span>
+<a class="hover:text-primary transition-colors underline" href="#">मदत व संपर्क</a>
+<span>•</span>
+<span>महाराष्ट्र शासन © २०२५</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ============================================================== -->
+<!-- VIEW 2: DEDICATED 360px MOBILE VIEWS SHOWCASE (SIDE-BY-SIDE) -->
+<!-- ============================================================== -->
+<section class="hidden mt-6 transition-all duration-300" id="mobileSection">
+<!-- Section Header -->
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-hairline pb-4">
+<div>
+<span class="px-2.5 py-1 rounded bg-gold-tint text-secondary font-bold text-label-sm uppercase tracking-wide">
+            ३६० Pixel Touch-Optimized Layouts
+          </span>
+<h2 class="font-marathi-heading text-headline-md font-headline-md text-ink-primary mt-1">
+            मोबाईल वाचक अनुभव (३ टप्पे)
+          </h2>
+<p class="text-body-sm text-ink-muted">
+            प्रत्येक स्क्रीन ३६०px रुंदीच्या मानकानुसार तयार केलेली असून सर्व बटणे आणि इनपुट ४८px+ स्पर्शक्षेत्राचे आहेत.
+          </p>
+</div>
+<button class="self-start sm:self-auto h-10 px-4 bg-canvas-bg hover:bg-border-hairline border border-border-hairline rounded-lg text-ink-primary text-label-md font-medium flex items-center gap-1.5 transition-colors" onclick="switchView('desktop')">
+<span class="material-symbols-outlined text-[18px]">desktop_windows</span>
+          डेस्कटॉप दृश्यावर परत जा
+        </button>
+</div>
+<!-- 3 Mobile Screens Grid (360px simulated viewport containers) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
+<!-- SCREEN A: MOBILE SIGN-IN (360px) -->
+<div class="w-[360px] min-h-[720px] bg-paper-bg rounded-2xl border-2 border-border-hairline shadow-[0_8px_30px_rgba(23,22,26,0.08)] flex flex-col justify-between overflow-hidden">
+<!-- Top Bar -->
+<div class="px-4 py-3 bg-surface-card border-b border-border-hairline flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">account_balance</span>
+<span class="font-marathi-heading font-bold text-primary text-sm">महासंवाद-पुस्तके</span>
+</div>
+<button class="px-2.5 py-1 rounded border border-border-hairline text-label-sm font-semibold text-ink-secondary bg-surface-sunk">
+              मराठी
+            </button>
+</div>
+<!-- Card Content -->
+<div class="p-5 flex-1 flex flex-col">
+<!-- Mini Hero Banner -->
+<div class="p-4 rounded-xl bg-canvas-bg border border-border-hairline mb-5">
+<span class="inline-block px-2 py-0.5 rounded-full bg-gold-tint text-secondary text-[10px] font-bold mb-1">
+                शासकीय ई-ग्रंथालय
+              </span>
+<h3 class="font-marathi-heading font-bold text-lg text-ink-primary leading-snug">
+                विश्वसनीय माहिती, आता आपल्या खिशात.
+              </h3>
+<p class="text-[12px] text-ink-muted mt-1">
+                लोकराज्य, शासन निर्णय आणि विशेष प्रकाशने विनामूल्य वाचा.
+              </p>
+</div>
+<h4 class="font-marathi-heading font-bold text-headline-sm text-ink-primary mb-1">
+              प्रवेश करा
+            </h4>
+<p class="text-body-sm text-ink-muted mb-4">
+              मोबाईल नंबर टाकून OTP मिळवा:
+            </p>
+<!-- 52px tall input target -->
+<div class="space-y-4">
+<div>
+<label class="block text-label-sm font-bold text-ink-secondary mb-1.5">
+                  मोबाईल क्रमांक
+                </label>
+<div class="relative flex items-center">
+<div class="absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-surface-sunk border-r border-border-hairline rounded-l-xl text-ink-primary font-bold text-sm">
+                    +९१
+                  </div>
+<input class="w-full h-[52px] pl-14 pr-3 bg-surface-sunk rounded-xl border border-transparent text-ink-primary text-base font-semibold focus:bg-white" type="tel" value="९८७६५ ४३२१०"/>
+</div>
+</div>
+<!-- 48px+ Touch CTA -->
+<button class="w-full h-[50px] bg-primary-container text-white font-bold text-base rounded-xl flex items-center justify-center gap-2 active:bg-primary" onclick="showOtpModal()">
+<span>OTP पाठवा</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+<!-- Divider -->
+<div class="relative my-5 text-center">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-border-hairline"></div>
+</div>
+<span class="relative px-3 bg-paper-bg text-ink-muted text-[11px] uppercase tracking-wider">
+                किंवा
+              </span>
+</div>
+<!-- Alternate Login -->
+<div class="space-y-2.5">
+<button class="w-full h-[48px] bg-white border border-border-hairline rounded-xl text-ink-primary text-sm font-semibold flex items-center justify-center gap-2">
+<svg class="w-4 h-4" viewbox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path></svg>
+                Google सह पुढे जा
+              </button>
+<button class="w-full h-[48px] bg-canvas-bg border border-border-hairline rounded-xl text-ink-secondary text-sm font-semibold flex items-center justify-center gap-1.5" onclick="showStepTwoModal()">
+<span class="material-symbols-outlined text-[18px]">person_outline</span>
+                पाहुणे वाचक म्हणून वाचा
+              </button>
+</div>
+</div>
+<!-- Bottom micro footer -->
+<div class="p-3 bg-surface-card border-t border-border-hairline text-center text-[10px] text-ink-muted">
+            DGIPR · माहिती व जनसंपर्क महासंचालनालय
+          </div>
+</div>
+<!-- SCREEN B: MOBILE OTP SCREEN (360px) -->
+<div class="w-[360px] min-h-[720px] bg-paper-bg rounded-2xl border-2 border-border-hairline shadow-[0_8px_30px_rgba(23,22,26,0.08)] flex flex-col justify-between overflow-hidden relative">
+<!-- Top Bar with Back Action -->
+<div class="px-4 py-3 bg-surface-card border-b border-border-hairline flex items-center justify-between">
+<button class="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-canvas-bg text-ink-primary">
+<span class="material-symbols-outlined text-[22px]">arrow_back</span>
+</button>
+<span class="font-marathi-heading font-bold text-ink-primary text-sm">OTP पडताळणी</span>
+<div class="w-8"></div>
+</div>
+<!-- Main OTP Body -->
+<div class="p-5 flex-1 flex flex-col">
+<!-- SMS Auto-fill Simulation Banner -->
+<div class="mb-4 p-2.5 rounded-lg bg-success-surface border border-emerald-300/60 flex items-center justify-between text-tertiary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">sms</span>
+<span class="text-label-sm font-semibold">SMS आपोआप वाचला: ४२८३१५</span>
+</div>
+<span class="text-[10px] font-bold bg-white px-2 py-0.5 rounded text-tertiary shadow-sm">वापरा</span>
+</div>
+<h3 class="font-marathi-heading font-bold text-headline-sm text-ink-primary mb-1">
+              ६-अंकी कोड प्रविष्ट करा
+            </h3>
+<p class="text-body-sm text-ink-secondary leading-relaxed">
+              आम्ही <span class="font-bold text-ink-primary">+९१ ९८७६५ ४३२१०</span> वर पडताळणी कोड पाठवला आहे.
+            </p>
+<button class="text-left text-label-sm text-primary font-bold inline-flex items-center gap-1 mt-1 mb-6">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+              नंबर बदला
+            </button>
+<!-- 6 Individual Numeric OTP Boxes (min 48px wide each) -->
+<div class="flex items-center justify-between gap-1.5 my-2">
+<div class="w-[48px] h-[52px] rounded-xl border border-primary bg-white flex items-center justify-center text-xl font-bold text-primary ring-2 ring-primary/20">
+                ४
+              </div>
+<div class="w-[48px] h-[52px] rounded-xl border border-primary bg-white flex items-center justify-center text-xl font-bold text-primary ring-2 ring-primary/20">
+                २
+              </div>
+<div class="w-[48px] h-[52px] rounded-xl border border-primary bg-white flex items-center justify-center text-xl font-bold text-primary ring-2 ring-primary/20">
+                ८
+              </div>
+<div class="w-[48px] h-[52px] rounded-xl border border-border-hairline bg-surface-sunk flex items-center justify-center text-xl font-bold text-ink-primary">
+                ३
+              </div>
+<div class="w-[48px] h-[52px] rounded-xl border border-border-hairline bg-surface-sunk flex items-center justify-center text-xl font-bold text-ink-primary">
+                १
+              </div>
+<div class="w-[48px] h-[52px] rounded-xl border-2 border-dashed border-border-strong bg-white flex items-center justify-center text-xl font-bold text-ink-muted animate-pulse">
+                _
+              </div>
+</div>
+<!-- Error Validation State Simulation Pill -->
+<div class="mt-3 p-2 rounded-lg bg-error-surface border border-error/20 flex items-center gap-2 text-error-text text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">error</span>
+<span>अवैध OTP, कृपया पुन्हा तपासा</span>
+</div>
+<!-- Timer Countdown -->
+<div class="mt-6 text-center">
+<div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-canvas-bg border border-border-hairline text-label-sm text-ink-muted">
+<span class="material-symbols-outlined text-[16px] text-ink-secondary">timer</span>
+<span>०:३० नंतर पुन्हा पाठवा</span>
+</div>
+<div class="mt-3">
+<button class="text-label-sm text-ink-faint font-semibold cursor-not-allowed">
+                  नवीन OTP पाठवा
+                </button>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom CTA -->
+<div class="p-4 bg-surface-card border-t border-border-hairline">
+<button class="w-full h-[52px] bg-primary-container text-white font-bold text-base rounded-xl flex items-center justify-center gap-2 active:bg-primary shadow-sm" onclick="showStepTwoModal()">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>पडताळणी करा आणि पुढे जा</span>
+</button>
+</div>
+</div>
+<!-- SCREEN C: STEP 2/2 ONBOARDING (DISTRICT & INTERESTS) (360px) -->
+<div class="w-[360px] min-h-[720px] bg-paper-bg rounded-2xl border-2 border-border-hairline shadow-[0_8px_30px_rgba(23,22,26,0.08)] flex flex-col justify-between overflow-hidden">
+<!-- Top Bar with Stepper Indicator -->
+<div class="px-4 py-3 bg-surface-card border-b border-border-hairline">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-[11px] font-bold uppercase tracking-wider text-primary">माझे ग्रंथालय रचना</span>
+<span class="text-[11px] font-bold text-ink-secondary">पायरी २ / २</span>
+</div>
+<!-- Progress bar -->
+<div class="w-full h-1.5 bg-canvas-bg rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-full rounded-full"></div>
+</div>
+</div>
+<!-- Main Selection Body -->
+<div class="p-5 flex-1 flex flex-col overflow-y-auto">
+<h3 class="font-marathi-heading font-bold text-headline-sm text-ink-primary mb-1">
+              आपली आवड निवडा
+            </h3>
+<p class="text-body-sm text-ink-muted mb-4">
+              आपल्या पसंतीनुसार आम्ही पुस्तके व शासन नियमावलींची शिफारस करू.
+            </p>
+<!-- District Selection (Maharashtra 36 Districts) -->
+<div class="mb-5">
+<label class="block text-label-sm font-bold text-ink-secondary mb-1.5">
+                आपला जिल्हा निवडा (महाराष्ट्र शासन ३६ जिल्हे)
+              </label>
+<div class="relative">
+<select class="w-full h-[52px] px-3.5 bg-surface-sunk rounded-xl border border-transparent text-ink-primary text-base font-medium appearance-none focus:bg-white pr-10">
+<option selected="">पुणे (Pune)</option>
+<option>मुंबई शहर (Mumbai City)</option>
+<option>मुंबई उपनगर (Mumbai Suburban)</option>
+<option>छत्रपती संभाजीनगर (Chhatrapati Sambhajinagar)</option>
+<option>नागपूर (Nagpur)</option>
+<option>नाशिक (Nashik)</option>
+<option>कोल्हापूर (Kolhapur)</option>
+<option>अमरावती (Amravati)</option>
+<option>नांदेड (Nanded)</option>
+<option>रत्नागिरी (Ratnagiri)</option>
+<option>सिंधुदुर्ग (Sindhudurg)</option>
+<option>सातारा (Satara)</option>
+<option>सोलापूर (Solapur)</option>
+</select>
+<div class="absolute right-3.5 top-0 bottom-0 flex items-center pointer-events-none text-ink-muted">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Interests Chips -->
+<div>
+<label class="block text-label-sm font-bold text-ink-secondary mb-2">
+                रुचीचे विषय निवडा (किमान २)
+              </label>
+<div class="flex flex-wrap gap-2">
+<!-- Chip 1: Selected -->
+<button class="px-3.5 py-2 rounded-full text-label-sm font-semibold bg-crimson-tint text-primary border border-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">check</span>
+                  शेती व कृषी
+                </button>
+<!-- Chip 2: Selected -->
+<button class="px-3.5 py-2 rounded-full text-label-sm font-semibold bg-crimson-tint text-primary border border-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">check</span>
+                  शासकीय योजना
+                </button>
+<!-- Chip 3: Unselected -->
+<button class="px-3.5 py-2 rounded-full text-label-sm font-semibold bg-white text-ink-secondary border border-border-hairline hover:border-border-strong flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-ink-muted">add</span>
+                  आरोग्य
+                </button>
+<!-- Chip 4: Unselected -->
+<button class="px-3.5 py-2 rounded-full text-label-sm font-semibold bg-white text-ink-secondary border border-border-hairline hover:border-border-strong flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-ink-muted">add</span>
+                  शिक्षण व रोजगार
+                </button>
+<!-- Chip 5: Selected -->
+<button class="px-3.5 py-2 rounded-full text-label-sm font-semibold bg-crimson-tint text-primary border border-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">check</span>
+                  संस्कृती व पर्यटन
+                </button>
+<!-- Chip 6: Unselected -->
+<button class="px-3.5 py-2 rounded-full text-label-sm font-semibold bg-white text-ink-secondary border border-border-hairline hover:border-border-strong flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-ink-muted">add</span>
+                  उद्योग व तंत्रज्ञान
+                </button>
+<!-- Chip 7: Unselected -->
+<button class="px-3.5 py-2 rounded-full text-label-sm font-semibold bg-white text-ink-secondary border border-border-hairline hover:border-border-strong flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-ink-muted">add</span>
+                  सहकार व ग्रामविकास
+                </button>
+</div>
+</div>
+<!-- Mini Tip -->
+<div class="mt-4 p-3 rounded-lg bg-canvas-bg border border-border-hairline text-[11px] text-ink-muted flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">lightbulb</span>
+<span>तुम्ही हे प्राधान्यक्रम नंतर आपल्या प्रोफाईलमध्ये कधीही बदलू शकता.</span>
+</div>
+</div>
+<!-- Bottom Action -->
+<div class="p-4 bg-surface-card border-t border-border-hairline">
+<button class="w-full h-[52px] bg-primary-container text-white font-bold text-base rounded-xl flex items-center justify-center gap-2 active:bg-primary shadow-sm" onclick="alert('आपले डिजिटल ग्रंथालय यशस्वीरीत्या सुरू झाले आहे!')">
+<span class="material-symbols-outlined text-[20px]">auto_stories</span>
+<span>माझे ग्रंथालय सुरू करा</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- ============================================================== -->
+<!-- MODAL 1: OTP VERIFICATION DIALOG (POPUP OVER DESKTOP VIEW) -->
+<!-- ============================================================== -->
+<div class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4" id="otpModalBackdrop">
+<div class="w-full max-w-md bg-white rounded-2xl border border-border-hairline shadow-[0_16px_40px_rgba(23,22,26,0.18)] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+<!-- Modal Header -->
+<div class="px-6 py-4 border-b border-border-hairline flex items-center justify-between bg-paper-bg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">mark_email_read</span>
+<h3 class="font-marathi-heading font-bold text-headline-sm text-ink-primary">
+            OTP पडताळणी
+          </h3>
+</div>
+<button class="w-9 h-9 rounded-full flex items-center justify-center text-ink-muted hover:bg-canvas-bg hover:text-ink-primary transition-colors" onclick="closeOtpModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-6">
+<!-- SMS Simulation Chip -->
+<div class="mb-4 px-3 py-2 rounded-lg bg-success-surface border border-emerald-300 text-tertiary flex items-center justify-between text-label-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">notifications_active</span>
+<span>प्राप्त OTP: <strong class="tracking-widest">४२८३१५</strong></span>
+</div>
+<button class="px-2 py-0.5 rounded bg-white font-bold text-tertiary hover:bg-white/80 shadow-xs text-xs" onclick="autofillOtp()">
+            भरून घ्या
+          </button>
+</div>
+<p class="text-body-sm font-body-sm text-ink-secondary mb-1">
+          आम्ही <span class="font-bold text-ink-primary">+९१ ९८७६५ ४३२१०</span> या क्रमांकावर ६-अंकी सुरक्षित कोड पाठवला आहे.
+        </p>
+<div class="flex items-center gap-2 mb-6">
+<button class="text-label-sm text-primary font-bold hover:underline flex items-center gap-1" onclick="closeOtpModal()">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+            नंबर बदला
+          </button>
+</div>
+<!-- 6 OTP Boxes -->
+<div class="grid grid-cols-6 gap-2 mb-4">
+<input class="w-full h-14 text-center text-2xl font-bold bg-surface-sunk rounded-xl border border-transparent focus:bg-white font-marathi-heading text-ink-primary" id="otp1" maxlength="1" type="text" value="४"/>
+<input class="w-full h-14 text-center text-2xl font-bold bg-surface-sunk rounded-xl border border-transparent focus:bg-white font-marathi-heading text-ink-primary" id="otp2" maxlength="1" type="text" value="२"/>
+<input class="w-full h-14 text-center text-2xl font-bold bg-surface-sunk rounded-xl border border-transparent focus:bg-white font-marathi-heading text-ink-primary" id="otp3" maxlength="1" type="text" value="८"/>
+<input class="w-full h-14 text-center text-2xl font-bold bg-white rounded-xl border border-primary focus:bg-white font-marathi-heading text-primary ring-2 ring-primary/20" id="otp4" maxlength="1" placeholder="०" type="text"/>
+<input class="w-full h-14 text-center text-2xl font-bold bg-surface-sunk rounded-xl border border-transparent focus:bg-white font-marathi-heading text-ink-primary" id="otp5" maxlength="1" placeholder="०" type="text"/>
+<input class="w-full h-14 text-center text-2xl font-bold bg-surface-sunk rounded-xl border border-transparent focus:bg-white font-marathi-heading text-ink-primary" id="otp6" maxlength="1" placeholder="०" type="text"/>
+</div>
+<!-- Resend and Timer -->
+<div class="flex items-center justify-between text-label-sm py-2">
+<span class="text-ink-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span id="countdownTimer">०:२८</span> नंतर पुन्हा पाठवा
+          </span>
+<button class="text-ink-muted hover:text-primary transition-colors font-semibold disabled:opacity-50">
+            पुन्हा कोड पाठवा
+          </button>
+</div>
+<!-- Action Buttons -->
+<div class="mt-6 space-y-3">
+<button class="w-full min-h-[48px] h-12 bg-primary-container hover:bg-[#8F1224] text-white font-label-lg font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm" onclick="closeOtpModal(); showStepTwoModal();" type="button">
+<span>पडताळणी करा आणि पुढे जा</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="w-full h-10 text-ink-muted hover:text-ink-primary text-label-md font-medium" onclick="closeOtpModal()" type="button">
+            रद्द करा
+          </button>
+</div>
+</div>
+<!-- Trust Stamp in Modal -->
+<div class="px-6 py-2.5 bg-canvas-bg border-t border-border-hairline text-center text-[11px] text-ink-muted">
+        महाराष्ट्र शासन · सुरक्षीत OTP प्रमाणीकरण पोर्टल
+      </div>
+</div>
+</div>
+<!-- ============================================================== -->
+<!-- MODAL 2: STEP 2 (DISTRICT & INTERESTS ONBOARDING) -->
+<!-- ============================================================== -->
+<div class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4" id="stepTwoModalBackdrop">
+<div class="w-full max-w-lg bg-white rounded-2xl border border-border-hairline shadow-[0_16px_40px_rgba(23,22,26,0.18)] overflow-hidden">
+<!-- Header with Stepper -->
+<div class="px-6 py-4 border-b border-border-hairline bg-paper-bg flex items-center justify-between">
+<div>
+<span class="text-label-sm font-bold text-primary">पायरी २ / २</span>
+<h3 class="font-marathi-heading font-bold text-headline-sm text-ink-primary">
+            आपले प्राधान्यक्रम निश्चित करा
+          </h3>
+</div>
+<button class="w-9 h-9 rounded-full flex items-center justify-center text-ink-muted hover:bg-canvas-bg" onclick="closeStepTwoModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Form Body -->
+<div class="p-6 max-h-[768px] overflow-y-auto space-y-5">
+<!-- District Dropdown -->
+<div>
+<label class="block text-label-md font-bold text-ink-secondary mb-2">
+            आपला जिल्हा निवडा (महाराष्ट्र राज्य ३६ जिल्हे)
+          </label>
+<div class="relative">
+<select class="w-full h-[52px] px-4 bg-surface-sunk rounded-xl border border-transparent text-ink-primary text-label-lg font-medium appearance-none focus:bg-white pr-10">
+<option value="pune">पुणे (Pune)</option>
+<option value="mumbai">मुंबई शहर (Mumbai City)</option>
+<option value="mumbai_sub">मुंबई उपनगर (Mumbai Suburban)</option>
+<option value="csn">छत्रपती संभाजीनगर (Chhatrapati Sambhajinagar)</option>
+<option value="nagpur">नागपूर (Nagpur)</option>
+<option value="nashik">नाशिक (Nashik)</option>
+<option value="kolhapur">कोल्हापूर (Kolhapur)</option>
+<option value="amravati">अमरावती (Amravati)</option>
+<option value="nanded">नांदेड (Nanded)</option>
+<option value="ratnagiri">रत्नागिरी (Ratnagiri)</option>
+<option value="satara">सातारा (Satara)</option>
+</select>
+<div class="absolute right-4 top-0 bottom-0 flex items-center pointer-events-none text-ink-muted">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Topics / Interests Selection -->
+<div>
+<label class="block text-label-md font-bold text-ink-secondary mb-1">
+            आपल्या आवडीचे शासकीय व साहित्य विषय
+          </label>
+<p class="text-body-sm text-ink-muted mb-3">
+            आपल्या आवडीनुसार मुख्यपृष्ठावरील पुस्तके व मासिके क्रमवारीनुसार दिसतील.
+          </p>
+<div class="flex flex-wrap gap-2.5" id="interestTags">
+<button class="px-4 py-2.5 rounded-full text-label-md font-semibold bg-crimson-tint text-primary border border-primary flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+              शेती व ग्रामविकास
+            </button>
+<button class="px-4 py-2.5 rounded-full text-label-md font-semibold bg-crimson-tint text-primary border border-primary flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+              शासकीय योजना व निर्णय
+            </button>
+<button class="px-4 py-2.5 rounded-full text-label-md font-semibold bg-white text-ink-secondary border border-border-hairline hover:border-primary flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px] text-ink-muted">add</span>
+              आरोग्य व पोषण
+            </button>
+<button class="px-4 py-2.5 rounded-full text-label-md font-semibold bg-white text-ink-secondary border border-border-hairline hover:border-primary flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px] text-ink-muted">add</span>
+              शिक्षण व स्पर्धा परीक्षा
+            </button>
+<button class="px-4 py-2.5 rounded-full text-label-md font-semibold bg-crimson-tint text-primary border border-primary flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+              संस्कृती, इतिहास व पर्यटन
+            </button>
+<button class="px-4 py-2.5 rounded-full text-label-md font-semibold bg-white text-ink-secondary border border-border-hairline hover:border-primary flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px] text-ink-muted">add</span>
+              उद्योग, व्यापार व तंत्रज्ञान
+            </button>
+<button class="px-4 py-2.5 rounded-full text-label-md font-semibold bg-white text-ink-secondary border border-border-hairline hover:border-primary flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px] text-ink-muted">add</span>
+              सहकार चळवळ
+            </button>
+</div>
+</div>
+<!-- Terms checkbox -->
+<div class="p-3.5 rounded-xl bg-canvas-bg border border-border-hairline flex items-start gap-3">
+<input checked="" class="mt-1 rounded text-primary focus:ring-primary border-border-strong w-4 h-4" id="notifCheck" type="checkbox"/>
+<label class="text-label-sm text-ink-secondary" for="notifCheck">
+            माहिती व जनसंपर्क महासंचालनालयाचे नवीन लोकराज्य विशेषांक प्रकाशित झाल्यावर मोफत सूचना (Notifications) मिळवा.
+          </label>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="px-6 py-4 bg-paper-bg border-t border-border-hairline flex items-center justify-end gap-3">
+<button class="px-4 py-2 text-ink-muted hover:text-ink-primary text-label-md font-medium" onclick="closeStepTwoModal()">
+          मागे
+        </button>
+<button class="min-h-[48px] px-6 bg-primary-container hover:bg-[#8F1224] text-white font-label-md font-bold rounded-xl flex items-center gap-2 shadow-sm" onclick="completeOnboarding()">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+<span>माझे ग्रंथालय सुरू करा</span>
+</button>
+</div>
+</div>
+</div>
+<!-- SHARED FOOTER (From Design System Component JSON) -->
+<footer class="w-full border-t border-border-hairline bg-canvas-bg mt-12">
+<div class="w-full px-6 py-8 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+<div class="flex flex-col gap-1">
+<span class="font-marathi-heading font-bold text-headline-sm text-primary">महासंवाद-पुस्तके</span>
+<p class="text-body-sm font-body-sm text-ink-muted">
+          © महाराष्ट्र शासन · माहिती व जनसंपर्क महासंचालनालय (DGIPR). सर्व हक्क सुरक्षित.
+        </p>
+</div>
+<div class="flex flex-wrap items-center justify-center gap-4 text-label-md font-label-md text-ink-muted">
+<a class="hover:text-primary underline transition-colors duration-150" href="#">गोपनीयता धोरण</a>
+<span>·</span>
+<a class="hover:text-primary underline transition-colors duration-150" href="#">वापराच्या अटी</a>
+<span>·</span>
+<a class="hover:text-primary underline transition-colors duration-150" href="#">मदत व संपर्क</a>
+<span>·</span>
+<a class="hover:text-primary underline transition-colors duration-150" href="#">शासकीय पोर्टल</a>
+</div>
+</div>
+</footer>
+<!-- Interactive Micro-Scripts for UI State Switches -->
+<script>
+    function switchView(mode) {
+      const desktopSec = document.getElementById('desktopSection');
+      const mobileSec = document.getElementById('mobileSection');
+      const btnDesk = document.getElementById('btnShowDesktop');
+      const btnMob = document.getElementById('btnShowMobile');
+
+      if (mode === 'mobile') {
+        desktopSec.classList.add('hidden');
+        mobileSec.classList.remove('hidden');
+        btnDesk.classList.remove('active', 'bg-primary-container', 'text-white');
+        btnDesk.classList.add('text-ink-secondary');
+        btnMob.classList.add('active', 'bg-primary-container', 'text-white');
+        btnMob.classList.remove('text-ink-secondary');
+      } else {
+        desktopSec.classList.remove('hidden');
+        mobileSec.classList.add('hidden');
+        btnMob.classList.remove('active', 'bg-primary-container', 'text-white');
+        btnMob.classList.add('text-ink-secondary');
+        btnDesk.classList.add('active', 'bg-primary-container', 'text-white');
+        btnDesk.classList.remove('text-ink-secondary');
+      }
+    }
+
+    function showOtpModal() {
+      document.getElementById('otpModalBackdrop').classList.remove('hidden');
+    }
+
+    function closeOtpModal() {
+      document.getElementById('otpModalBackdrop').classList.add('hidden');
+    }
+
+    function showStepTwoModal() {
+      closeOtpModal();
+      document.getElementById('stepTwoModalBackdrop').classList.remove('hidden');
+    }
+
+    function closeStepTwoModal() {
+      document.getElementById('stepTwoModalBackdrop').classList.add('hidden');
+    }
+
+    function autofillOtp() {
+      document.getElementById('otp1').value = '४';
+      document.getElementById('otp2').value = '२';
+      document.getElementById('otp3').value = '८';
+      document.getElementById('otp4').value = '३';
+      document.getElementById('otp5').value = '१';
+      document.getElementById('otp6').value = '५';
+    }
+
+    function completeOnboarding() {
+      closeStepTwoModal();
+      alert('अभिनंदन! आपले महासंवाद-पुस्तके वाचक खाते यशस्वीरीत्या सुरू करण्यात आले आहे.');
+    }
+  </script>
+</body></html>

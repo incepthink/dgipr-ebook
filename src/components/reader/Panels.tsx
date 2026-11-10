@@ -5,13 +5,13 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { motion } from 'motion/react'
 import { FONT_STEPS } from '@/lib/paginate/layout'
 import { pageForAnchor } from '@/lib/paginate/anchors'
-import type { Pagination } from '@/lib/paginate/types'
+import type { Anchor, Pagination } from '@/lib/paginate/types'
 import { toDevanagariDigits } from '@/lib/marathi'
 import type { ReaderBook } from '@/lib/types'
 import { folio } from './PageView'
-import type { Bookmark, Prefs, Theme } from './storage'
+import type { Bookmark, Highlight, Prefs, Theme } from './storage'
 
-function Panel({
+export function Panel({
   title,
   onClose,
   children,
@@ -61,8 +61,10 @@ export function ContentsPanel({
   current,
   visible,
   bookmarks,
+  highlights = [],
   initialTab,
   onGo,
+  onGoAnchor,
   onRemoveBookmark,
   onClose,
 }: {
@@ -71,8 +73,10 @@ export function ContentsPanel({
   current: number
   visible: number[]
   bookmarks: Bookmark[]
-  initialTab: 'toc' | 'marks'
+  highlights?: Highlight[]
+  initialTab: 'toc' | 'marks' | 'hl'
   onGo: (page: number) => void
+  onGoAnchor?: (a: Anchor) => void
   onRemoveBookmark: (b: Bookmark) => void
   onClose: () => void
 }) {
@@ -90,9 +94,34 @@ export function ContentsPanel({
         <button role="tab" aria-selected={tab === 'marks'} onClick={() => setTab('marks')}>
           खुणा {bookmarks.length ? `(${toDevanagariDigits(bookmarks.length)})` : ''}
         </button>
+        <button role="tab" aria-selected={tab === 'hl'} onClick={() => setTab('hl')}>
+          ठळक {highlights.length ? `(${toDevanagariDigits(highlights.length)})` : ''}
+        </button>
       </div>
       <div className="panel-body">
-        {tab === 'toc' ? (
+        {tab === 'hl' ? (
+          highlights.length ? (
+            [...highlights]
+              .sort((a, b) => a.c - b.c || a.b - b.b || a.start - b.start)
+              .map((h) => (
+                <button key={h.id} className="tocl-item" onClick={() => onGoAnchor?.({ c: h.c, b: h.b, o: h.start })}>
+                  <span className={`n hl-dot hl--${h.color}`} aria-hidden />
+                  <span className="t">
+                    <small>{data.chapters[h.c]?.article.title}</small>
+                    {h.text}
+                    {h.note && <em className="hl-note-line">✎ {h.note}</em>}
+                  </span>
+                  <span className="p" />
+                </button>
+              ))
+          ) : (
+            <p className="empty-note">
+              अद्याप काहीही ठळक केलेले नाही.
+              <br />
+              सोपे वाचन मोडमध्ये ओळ निवडून रंग निवडा.
+            </p>
+          )
+        ) : tab === 'toc' ? (
           <>
             <button className="tocl-item" onClick={() => onGo(0)} aria-current={current === 0}>
               <span className="n">◆</span>
@@ -253,7 +282,8 @@ export function SharePanel({
 }) {
   const [copied, setCopied] = useState(false)
   const canShare = typeof navigator !== 'undefined' && typeof navigator.share === 'function'
-  const text = `${title} — ${pageLabel}`
+  // The headline and a link: never the book itself.
+  const text = `${title}\n\nमहासंवाद ई-पुस्तके`
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(url)
@@ -272,7 +302,7 @@ export function SharePanel({
     <Panel title="शेअर करा" onClose={onClose} pop label="शेअर करा">
       <div style={{ padding: '0 18px 20px', display: 'grid', gap: 12 }}>
         <p style={{ fontSize: 13.5, color: 'var(--chrome-muted)', lineHeight: 1.5 }}>
-          ही लिंक उघडणाऱ्याला थेट <b style={{ color: 'var(--chrome-ink)' }}>{pageLabel}</b> दिसेल.
+          ही लिंक उघडणाऱ्याला थेट <b style={{ color: 'var(--chrome-ink)' }}>{pageLabel}</b> दिसेल. फक्त लिंक जाते — पुस्तक डाउनलोड होत नाही.
         </p>
         <div
           style={{

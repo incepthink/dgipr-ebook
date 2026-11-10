@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit",
     "db:start": "node scripts/pg.mjs start",
     "db:stop": "node scripts/pg.mjs stop",
-    "seed": "node scripts/with-system-ca.mjs tsx scripts/seed.ts"
+    "seed": "node scripts/with-system-ca.mjs tsx scripts/seed.ts",
+    "seed:demo": "node scripts/with-system-ca.mjs tsx scripts/seed-demo.ts",
+    "make-admin": "node scripts/with-system-ca.mjs tsx scripts/make-admin.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

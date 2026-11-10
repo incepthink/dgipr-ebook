@@ -29,11 +29,27 @@ function makePool(): Pool {
     connectionTimeoutMillis: 10_000,
     keepAlive: true,
     ssl: sslConfig(),
+    // Postgres itself refuses every write on these connections.
+    options: readOnlyDb() ? '-c default_transaction_read_only=on' : undefined,
+    // Second lock, in case a proxy drops the startup option. The pool waits for
+    // this before handing the connection out, and discards it if it fails.
+    onConnect: readOnlyDb()
+      ? async (client) => {
+          await client.query('SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY')
+        }
+      : undefined,
   })
   // An unhandled 'error' from an idle client would take the process down.
   p.on('error', (err) => console.warn('[db] idle client dropped:', err.message))
   return p
 }
+
+/**
+ * DATABASE_READONLY=1: look at a live database without changing it — for
+ * checking a new build locally against production. No schema is created, and
+ * the database rejects any INSERT/UPDATE/DELETE. Sign-in is switched off.
+ */
+export const readOnlyDb = () => process.env.DATABASE_READONLY === '1'
 
 /**
  * RDS terminates TLS with an Amazon-issued cert that isn't in Node's trust store.
@@ -98,9 +114,100 @@ CREATE TABLE IF NOT EXISTS chapters (
 );
 CREATE INDEX IF NOT EXISTS chapters_book_idx ON chapters (book_id, position);
 CREATE INDEX IF NOT EXISTS articles_published_idx ON articles (published_at DESC);
+
+-- Readers' accounts. A reader signs in with Google or with an email and
+-- password. (mobile is kept for accounts made that way earlier, and for admins.)
+CREATE TABLE IF NOT EXISTS users (
+  id             SERIAL PRIMARY KEY,
+  mobile         TEXT UNIQUE,
+  email          TEXT UNIQUE,
+  password_hash  TEXT,
+  name           TEXT,
+  district       TEXT,
+  interests      TEXT[] NOT NULL DEFAULT '{}',
+  notify         BOOLEAN NOT NULL DEFAULT true,
+  role           TEXT NOT NULL DEFAULT 'reader' CHECK (role IN ('reader','admin')),
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+  last_login_at  TIMESTAMPTZ,
+  CHECK (mobile IS NOT NULL OR email IS NOT NULL)
+);
+
+-- Only a hash of the session token is stored; the token lives in the cookie.
+CREATE TABLE IF NOT EXISTS sessions (
+  id          TEXT PRIMARY KEY,
+  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  expires_at  TIMESTAMPTZ NOT NULL,
+  user_agent  TEXT
+);
+CREATE INDEX IF NOT EXISTS sessions_user_idx ON sessions (user_id);
+
+-- Google sign-in: the stable Google account id, and the profile photo.
+ALTER TABLE users ADD COLUMN IF NOT EXISTS google_sub TEXT UNIQUE;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar_url TEXT;
+
+-- Fixed-window counters for rate limits (login attempts).
+CREATE TABLE IF NOT EXISTS auth_throttle (
+  key           TEXT PRIMARY KEY,
+  hits          INTEGER NOT NULL,
+  window_start  TIMESTAMPTZ NOT NULL
+);
+
+-- Where each reader is in each book. The anchor is the same one the reader
+-- uses (chapter, block, offset), so it survives font and screen changes.
+CREATE TABLE IF NOT EXISTS reading_progress (
+  user_id      INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  book_id      INTEGER NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+  anchor       JSONB NOT NULL,
+  page         INTEGER NOT NULL DEFAULT 1,
+  page_count   INTEGER NOT NULL DEFAULT 1,
+  percent      REAL NOT NULL DEFAULT 0,
+  started_at   TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at   TIMESTAMPTZ NOT NULL DEFAULT now(),
+  finished_at  TIMESTAMPTZ,
+  PRIMARY KEY (user_id, book_id)
+);
+CREATE INDEX IF NOT EXISTS reading_progress_recent_idx ON reading_progress (user_id, updated_at DESC);
+
+CREATE TABLE IF NOT EXISTS bookmarks (
+  id          SERIAL PRIMARY KEY,
+  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  book_id     INTEGER NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+  anchor      JSONB NOT NULL,
+  label       TEXT NOT NULL DEFAULT '',
+  snippet     TEXT NOT NULL DEFAULT '',
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS bookmarks_user_book_idx ON bookmarks (user_id, book_id);
+
+-- Highlights and notes, made in the easy-reading view: characters
+-- [start_o, end_o) of block b of chapter c.
+CREATE TABLE IF NOT EXISTS highlights (
+  id          TEXT NOT NULL,
+  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  book_id     INTEGER NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+  c           INTEGER NOT NULL,
+  b           INTEGER NOT NULL,
+  start_o     INTEGER NOT NULL,
+  end_o       INTEGER NOT NULL,
+  text        TEXT NOT NULL,
+  color       TEXT NOT NULL DEFAULT 'yellow',
+  note        TEXT NOT NULL DEFAULT '',
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  PRIMARY KEY (user_id, book_id, id)
+);
+
+CREATE TABLE IF NOT EXISTS saved_books (
+  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  book_id     INTEGER NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  PRIMARY KEY (user_id, book_id)
+);
 `
 
 export function ensureSchema(): Promise<void> {
+  if (readOnlyDb()) return Promise.resolve()
   globalForPg._schema ??= pool()
     .query(SCHEMA)
     .then(() => undefined)
@@ -118,6 +225,10 @@ async function q<T = Row>(text: string, values: unknown[] = []): Promise<T[]> {
   const res = await pool().query(text, values)
   return res.rows as T[]
 }
+
+/** For the account modules (`src/lib/auth`, `src/lib/reading`), which keep their own queries. */
+export const query = q
+export { toSummary, SUMMARY_SELECT, VISIBLE }
 
 /* ---------------------------------------------------------------- mapping */
 
@@ -193,7 +304,9 @@ const SUMMARY_SELECT = `
        WHERE c.book_id = b.id AND a.hero_image IS NOT NULL ORDER BY c.position LIMIT 1) AS lead_image,
     (SELECT coalesce(json_agg(t.title), '[]') FROM (
        SELECT a.title FROM chapters c JOIN articles a ON a.id = c.article_id
-       WHERE c.book_id = b.id ORDER BY c.position LIMIT 4) t) AS lead_titles
+       WHERE c.book_id = b.id ORDER BY c.position LIMIT 4) t) AS lead_titles,
+    (SELECT coalesce(array_agg(DISTINCT a.district) FILTER (WHERE a.district IS NOT NULL), '{}')
+       FROM chapters c JOIN articles a ON a.id = c.article_id WHERE c.book_id = b.id) AS districts
   FROM books b`
 
 function toSummary(r: Row): BookSummary {
@@ -202,6 +315,7 @@ function toSummary(r: Row): BookSummary {
     chapterCount: Number(r.chapter_count ?? 0),
     leadImage: (r.lead_image as string) ?? null,
     leadTitles: (r.lead_titles as string[]) ?? [],
+    districts: (r.districts as string[]) ?? [],
   }
 }
 

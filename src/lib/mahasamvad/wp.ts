@@ -138,6 +138,19 @@ export async function browsePosts(opts: { search?: string; category?: number; pa
   }
 }
 
+/** A page of posts as full article rows (the list endpoint carries the whole body). */
+export async function browseArticles(opts: { search?: string; category?: number; page?: number; perPage?: number }) {
+  const qs = new URLSearchParams({
+    per_page: String(opts.perPage ?? 20),
+    page: String(opts.page ?? 1),
+    _embed: 'wp:featuredmedia,wp:term',
+  })
+  if (opts.search) qs.set('search', opts.search)
+  if (opts.category) qs.set('categories', String(opts.category))
+  const { data } = await getJson<WpPost[]>(`${API}/posts?${qs}`)
+  return data.map(mapPost)
+}
+
 let categoryCache: { at: number; data: WpCategory[] } | null = null
 
 export async function listCategories(): Promise<WpCategory[]> {

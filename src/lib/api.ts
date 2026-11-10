@@ -20,6 +20,8 @@ export function handle<A extends unknown[]>(fn: (...args: A) => Promise<Response
       return await fn(...args)
     } catch (err) {
       if (err instanceof HttpError) return fail(err.message, err.status)
+      // `await req.json()` on a malformed body: the caller's mistake, not ours.
+      if (err instanceof SyntaxError) return fail('अवैध विनंती', 400)
       if (err instanceof z.ZodError) {
         return fail(err.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; '))
       }
